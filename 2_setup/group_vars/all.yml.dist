@@ -1,0 +1,55 @@
+---
+mail:
+  user: "YOUR_GMAIL_EMAIL_ADDRESS"
+  pass: "YOUR_GMAIL_EMAIL_PASSWORD"
+  hostname: "YOUR_DOMAIN"
+  mailto: "YOUR_MAILTO_ADDRESS"
+  relayhost: "[smtp.gmail.com]:587"
+system:
+  basics:
+    - zip
+    - htop
+    - git
+    - ntp
+    - unzip
+    - bzip2
+    - curl
+    - python-software-properties
+  apt_cache_valid_time: 300 # seconds between "apt-get update" calls.
+java:
+  apt_repos:
+    - 'ppa:webupd8team/java'
+  apt_package: oracle-java8-installer
+  additional_apt_packages:
+      - ca-certificates
+      - oracle-java8-set-default
+elasticsearch:
+  user: elasticsearch
+  group: elasticsearch
+  download_url: https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/deb/elasticsearch
+  version: 2.4.4
+  max_open_files: 65535
+  home_dir: /usr/share/elasticsearch
+  plugin_dir: /usr/share/elasticsearch/plugins
+  log_dir: /var/log/elasticsearch
+  data_dir: /var/lib/elasticsearch
+  work_dir: /tmp/elasticsearch
+  conf_dir: /etc/elasticsearch
+  pid_dir: /var/run/elasticsearch
+  service_startonboot: yes
+  timezone: "Etc/UTC"  # Default to UTC
+  service_state: started
+#  http_cors_enabled: "false"
+opentender:
+  dir: /var/opentender
+nodejs:
+  version: "6.x"
+  npm_install_user: root
+  npm_config_prefix: "/usr/local/lib/npm"
+  npm_config_unsafe_perm: "false"   # Set to true to suppress the UID/GID switching when running package scripts. If set explicitly to false, then installing as a non-root user will fail.
+  npm_global_packages: [] # Define a list of global packages to be installed with NPM.
+  #  # Install a specific version of a package.
+  #  - name: jslint
+  #    version: 0.9.3
+  #  # Install the latest stable release of a package.
+  #  - name: node-sass

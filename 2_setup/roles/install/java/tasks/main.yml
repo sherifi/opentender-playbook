@@ -1,0 +1,17 @@
+---
+- name: Install add-apt-repostory
+  apt: name=software-properties-common state=latest
+
+- name: Add Oracle Java Repository
+  apt_repository: repo={{ item }} update_cache=yes state=present
+  with_items: "{{java.apt_repos}}"
+
+- name: Accept Java License
+  debconf: name='{{java.apt_package}}' question='shared/accepted-oracle-license-v1-1' value='true' vtype='select'
+
+- name: Install Oracle Java
+  apt: name={{java.apt_package}} state=latest cache_valid_time={{system.apt_cache_valid_time}}
+
+- name: Install Oracle Java Utils
+  apt: name={{item}} state=latest cache_valid_time={{system.apt_cache_valid_time}}
+  with_items: "{{java.additional_apt_packages}}"

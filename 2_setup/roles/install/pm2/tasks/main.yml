@@ -1,0 +1,13 @@
+---
+- name: "Install pm2 package globally"
+  npm:
+    name: pm2
+    global: yes
+
+# run pm2 to get rid of the annoying ad displayed on first start
+- name: "Start pm2"
+  become: yes
+  become_user: app
+  command: "pm2 ls > /dev/null"
+  args:
+    chdir: "/home/app"

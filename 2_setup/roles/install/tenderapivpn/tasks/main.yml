@@ -1,0 +1,61 @@
+---
+- name: "Install OpenVPN"
+  apt:
+    name: openvpn
+    state: present
+
+- name: "Copy vpn keys'n'config"
+  copy:
+    src: "../../../../files/vpn/{{item}}"
+    dest: "/etc/openvpn"
+  with_items:
+    - "ca.crt"
+    - "digiwhist.crt"
+    - "digiwhist.csr"
+    - "digiwhist.key"
+    - "digiwhist.conf"
+
+- name: "Test for openvpn autostart"
+  shell: grep "^AUTOSTART" /etc/default/openvpn
+  register: test_grep
+
+- name: "Disable openvpn autostart"
+  lineinfile:
+    dest: "/etc/default/openvpn"
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    backup: yes
+  with_items:
+   - { regexp: "^AUTOSTART", line: 'AUTOSTART="none"' }
+  when: test_grep.stdout == ""
+
+- name: "Ensure tenderapi scraper directories exists"
+  file:
+    path: "{{opentender.dir}}/scraper"
+    state: directory
+    recurse: yes
+
+- name: "Copy scripts"
+  copy:
+    src: "{{item}}"
+    dest: "{{opentender.dir}}/scraper"
+  with_items:
+    - "scrape.sh"
+    - "connect.sh"
+    - "disconnect.sh"
+
+- name: "Make scripts executable"
+  file:
+    path: "{{opentender.dir}}/scraper/{{item}}"
+    mode: "a+x"
+  with_items:
+    - "scrape.sh"
+    - "connect.sh"
+    - "disconnect.sh"
+
+- name: "Ensure OpenVPN is stopped"
+  service: name=openvpn state=stopped enabled=yes
+
+- name: "Reload systemd"
+  command: systemctl daemon-reload
+  when: test_grep.stdout == ""

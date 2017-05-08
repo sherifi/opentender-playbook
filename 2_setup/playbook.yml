@@ -1,0 +1,17 @@
+---
+- name: "Setup Opentender Server"
+  hosts: opentender
+  remote_user: root
+  roles:
+    - check/server
+    - setup/disable-passwort-login
+    - setup/apt-update
+    - setup/basics
+    - setup/mail
+    - setup/gitdeploy
+    - install/java
+    - install/elasticsearch
+    - install/node
+    - install/pm2
+    - install/opentender
+    - install/tenderapivpn

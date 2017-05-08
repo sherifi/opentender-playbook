@@ -1,0 +1,19 @@
+---
+- name: "Deploy files from Git repository"
+  git:
+    repo: "https://github.com/digiwhist/opentender.git"
+    dest: "{{opentender.dir}}"
+    force: yes
+
+- name: "Call install script"
+  shell: "{{opentender.dir}}/setup.sh"
+  args:
+    chdir: "{{opentender.dir}}"
+
+- name: "Set app user permissions"
+  file:
+    dest: "{{opentender.dir}}"
+    owner: app
+    group: app
+    state: directory
+    recurse: yes
