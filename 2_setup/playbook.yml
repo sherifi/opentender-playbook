@@ -12,5 +12,5 @@
     - install/elasticsearch
     - install/node
     - install/pm2
-    - install/tenderapivpn
     - install/opentender
+    - install/tenderapivpn
