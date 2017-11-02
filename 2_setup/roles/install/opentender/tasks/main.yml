@@ -5,15 +5,18 @@
     dest: "{{opentender.dir}}"
     force: yes
 
-- name: "Call install script"
-  shell: "{{opentender.dir}}/setup.sh"
-  args:
-    chdir: "{{opentender.dir}}"
+- name: Changing perm of "{{opentender.dir}}/setup/setup.sh", adding "+x"
+  file: dest={{opentender.dir}}/setup/setup.sh mode=a+x
 
-- name: "Set app user permissions"
+- name: "Call install script"
+  shell: "{{opentender.dir}}/setup/setup.sh"
+  args:
+    chdir: "{{opentender.dir}}/setup"
+
+- name: "Set opentender user permissions"
   file:
     dest: "{{opentender.dir}}"
-    owner: app
-    group: app
+    owner: "{{system.user}}"
+    group: "{{system.group}}"
     state: directory
     recurse: yes

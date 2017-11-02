@@ -5,7 +5,12 @@ mail:
   hostname: "YOUR_DOMAIN"
   mailto: "YOUR_MAILTO_ADDRESS"
   relayhost: "[smtp.gmail.com]:587"
+tenderapi:
+  ip: "IP_ADDRESS_TO_TENDERAPI_SERVER_IN_VPN"
+  port: "PORT_ADDRESS_TO_TENDERAPI_SERVER_IN_VPN"
 system:
+  user: opentender
+  group: opentender
   basics:
     - zip
     - htop
@@ -27,7 +32,7 @@ elasticsearch:
   user: elasticsearch
   group: elasticsearch
   download_url: https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/deb/elasticsearch
-  version: 2.4.4
+  version: 2.4.6
   max_open_files: 65535
   home_dir: /usr/share/elasticsearch
   plugin_dir: /usr/share/elasticsearch/plugins
@@ -53,3 +58,4 @@ nodejs:
   #    version: 0.9.3
   #  # Install the latest stable release of a package.
   #  - name: node-sass
+

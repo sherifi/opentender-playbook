@@ -1,11 +1,11 @@
 # Opentender Portal Ansible Playbook
 
-Configure a dedicated Opentender Server or Virtual Machine
+Configure a dedicated Opentender Server
 
 ## DO NOT RUN ON A SERVER WITH EXISTING OTHER SERVICES/APPS
 
 Needed:
-* Ubuntu Server (ubuntu-server-16.04.1) in a Virtual Machine (2GB RAM, min. 30GB HD)
+* Fresh installed Ubuntu Server (ubuntu-server-16.04.1) 
 * Ansible 2.2.1.0
 * Gmail SMTP user for outgoing mail sending (no incoming mail is configured)
 
@@ -13,7 +13,7 @@ Needed:
 
 ### install ubuntu
 
-you must use `app` as your main user name, password as you choose
+you must use `opentender` as your main user name, password as you choose
 
 ### add files to ansible "files" folder
 
@@ -61,4 +61,4 @@ Then Node, Elasticsearch & Utilities will be downloaded and installed with speci
 
 execute "run.sh" in "2_setup"
 
-Restart the VM and Opentender will be available on port 3000 of your Virtual Machine/Server.
+Restart the server and Opentender will be available on port 3000.

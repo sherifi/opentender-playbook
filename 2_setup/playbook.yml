@@ -8,10 +8,9 @@
     - setup/apt-update
     - setup/basics
     - setup/mail
-    - setup/gitdeploy
     - install/java
     - install/elasticsearch
     - install/node
     - install/pm2
-    - install/opentender
     - install/tenderapivpn
+    - install/opentender

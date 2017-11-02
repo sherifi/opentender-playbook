@@ -7,7 +7,7 @@
 # run pm2 to get rid of the annoying ad displayed on first start
 - name: "Start pm2"
   become: yes
-  become_user: app
+  become_user: "{{system.user}}"
   command: "pm2 ls > /dev/null"
   args:
-    chdir: "/home/app"
+    chdir: "/home/{{system.user}}"

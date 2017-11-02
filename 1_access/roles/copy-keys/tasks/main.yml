@@ -2,5 +2,5 @@
 - name: Placing key user root
   authorized_key: user=root key="{{ lookup('file', copy_key_public_ssh_key) }}"
 
-- name: Placing key user app
-  authorized_key: user=app key="{{ lookup('file', copy_key_public_ssh_key) }}"
+- name: Placing key user opentender
+  authorized_key: user=opentender key="{{ lookup('file', copy_key_public_ssh_key) }}"

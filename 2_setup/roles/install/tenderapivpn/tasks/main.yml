@@ -16,7 +16,9 @@
     - "digiwhist.conf"
 
 - name: "Test for openvpn autostart"
-  shell: grep "^AUTOSTART" /etc/default/openvpn
+  shell: "grep \"^AUTOSTART\" /etc/default/openvpn"
+  failed_when: test_grep.rc != 1
+  ignore_errors: yes
   register: test_grep
 
 - name: "Disable openvpn autostart"
@@ -40,9 +42,15 @@
     src: "{{item}}"
     dest: "{{opentender.dir}}/scraper"
   with_items:
-    - "scrape.sh"
+    - "status.sh"
     - "connect.sh"
     - "disconnect.sh"
+
+- name: "Copy scrape.sh template"
+  template:
+    src: scrape.sh.j2
+    dest: "{{opentender.dir}}/scraper/scrape.sh"
+    mode: 0644
 
 - name: "Make scripts executable"
   file:
@@ -50,6 +58,7 @@
     mode: "a+x"
   with_items:
     - "scrape.sh"
+    - "status.sh"
     - "connect.sh"
     - "disconnect.sh"
 
@@ -59,3 +68,8 @@
 - name: "Reload systemd"
   command: systemctl daemon-reload
   when: test_grep.stdout == ""
+
+- name: "Copy config.js template"
+  template:
+    src: config.js.j2
+    dest: "{{opentender.dir}}/scraper/config.js"

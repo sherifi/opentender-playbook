@@ -1,0 +1,22 @@
+#!/bin/bash
+
+cleanup() {
+  echo ""
+  echo "disconnecting vpn"
+  sudo systemctl stop openvpn@digiwhist.service
+  exit
+}
+
+#trap finish EXIT
+trap cleanup INT TERM
+
+echo "connecting vpn"
+sudo systemctl start openvpn@digiwhist.service
+SERVER="http://{{ tenderapi.ip }}"
+echo "waiting for $SERVER"
+sleep 10;
+while ! curl -s -v $SERVER > /dev/null; do echo "waiting for $SERVER"; ping -c 1 {{ tenderapi.ip }}; sleep 5; done;
+echo "Starting tenderapi scraper"
+node tenderapi.js
+cleanup
+exit
