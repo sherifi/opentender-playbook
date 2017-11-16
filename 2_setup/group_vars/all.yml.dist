@@ -48,7 +48,7 @@ elasticsearch:
 opentender:
   dir: /var/opentender
 nodejs:
-  version: "6.x"
+  version: "8.x"
   npm_install_user: root
   npm_config_prefix: "/usr/local/lib/npm"
   npm_config_unsafe_perm: "false"   # Set to true to suppress the UID/GID switching when running package scripts. If set explicitly to false, then installing as a non-root user will fail.
