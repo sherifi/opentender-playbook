@@ -151,5 +151,18 @@
     group: "{{ elasticsearch.group }}"
     mode: 0644
 
+- name: "Download Elasticsearch Plugin"
+  get_url:
+    url: "https://github.com/digiwhist/elasticsearch-native-script-opentender/raw/master/releases/elasticsearch-native-script-opentender-{{ elasticsearch.version }}-v1.0.zip"
+    dest: "/tmp/elasticsearch-native-script-opentender-{{ elasticsearch.version }}-v1.0.zip"
+
+- name: "Remove old plugin if there is one"
+  shell: /usr/share/elasticsearch/bin/plugin remove elasticsearch-native-script-opentender
+
+- name: "Install Plugin"
+  shell: /usr/share/elasticsearch/bin/plugin install file:////tmp/elasticsearch-native-script-opentender-{{ elasticsearch.version }}-v1.0.zip
+
 - name: "Restart Elasticsearch"
   service: name=elasticsearch state=restarted
+
+
