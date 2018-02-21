@@ -8,6 +8,8 @@ mail:
 tenderapi:
   ip: "IP_ADDRESS_TO_TENDERAPI_SERVER_IN_VPN"
   port: "PORT_ADDRESS_TO_TENDERAPI_SERVER_IN_VPN"
+  api_main: "master_tender/opentender"
+  api_sub: ""
 system:
   user: opentender
   group: opentender
