@@ -1,0 +1,11 @@
+---
+- name: Install memcached
+  apt: name=memcached state=latest
+
+# Start with a cap of 64 megs of memory. It's reasonable, and the daemon default
+# Note that the daemon will grow to this size, but does not start out holding this much
+# memory
+#-m 4096
+
+# Increase limit
+#-I 4M

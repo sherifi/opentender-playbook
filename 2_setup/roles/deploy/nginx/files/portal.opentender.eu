@@ -1,0 +1,33 @@
+server {
+		listen 80;
+		listen [::]:80;
+		server_name portal.opentender.eu;
+
+		location /.well-known {
+			default_type "text/plain";
+			root /opt/letsencrypt/tmp;
+		}
+
+		location / {
+			return 302 https://opentender.eu;
+		}
+}
+
+server {
+		listen [::]:443 ssl http2;
+		listen 443 http2;
+		server_name portal.opentender.eu;
+
+		ssl on;
+		ssl_certificate /etc/letsencrypt/live/portal.opentender.eu/fullchain.pem;
+		ssl_certificate_key /etc/letsencrypt/live/portal.opentender.eu/privkey.pem;
+
+		location /.well-known {
+			default_type "text/plain";
+			root /opt/letsencrypt/tmp;
+		}
+
+		location / {
+			return 302 https://opentender.eu;
+		}
+}

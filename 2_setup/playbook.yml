@@ -14,3 +14,7 @@
     - install/pm2
     - install/opentender
     - install/tenderapivpn
+#    - deploy/letsencrypt
+#    - deploy/memcached
+#    - deploy/nginx
+#    - deploy/opentender

@@ -1,0 +1,31 @@
+---
+- name: Install nginx
+  apt: name=nginx state=latest
+
+- name: "Copy sites"
+  copy:
+    src: "{{item}}"
+    dest: "/etc/nginx/sites-available"
+  with_items:
+    - "opentender.eu"
+    - "portal.opentender.eu"
+    - "preview.opentender.eu"
+
+- name: "Enable nginx sites"
+  file:
+    src: "/etc/nginx/sites-available/{{item}}"
+    dest: "/etc/nginx/sites-enabled/{{item}}"
+    state: link
+  with_items:
+    - "opentender.eu"
+    - "portal.opentender.eu"
+    - "preview.opentender.eu"
+
+
+#/etc/nginx/nginx.conf
+#http {
+#
+#	gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript text/csv;
+#
+#}
+#

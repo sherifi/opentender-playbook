@@ -1,0 +1,3 @@
+---
+- name: Install letsencrypt
+  apt: name=letsencrypt state=latest

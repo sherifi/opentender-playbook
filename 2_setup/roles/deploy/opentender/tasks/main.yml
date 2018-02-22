@@ -1,0 +1,47 @@
+---
+- hostname:
+    name: opentender
+
+- name: "Copy Opentender Backend Config"
+  copy:
+    src: "backend/config.js"
+    dest: "/var/opentender/backend/config.js"
+
+- name: "Copy Opentender Frontend Config"
+  copy:
+    src: "frontend/config.js"
+    dest: "/var/opentender/frontend/config.js"
+
+- name: "Ensure www/opentender.eu directories exists"
+  file:
+    path: "/var/www/opentender.eu/maintenance/"
+    state: directory
+    owner: "www-data"
+    group: "www-data"
+    recurse: yes
+
+- name: "Copy Opentender Maintenance Page"
+  copy:
+    src: "maintenance/maintenance_on.html.bak"
+    dest: "/var/www/opentender.eu/maintenance/maintenance_on.html.bak"
+
+- name: "Deploy files from Git repository"
+  git:
+    repo: "https://github.com/okfde/opentender.eu.git"
+    dest: "/var/www/opentender.eu/opentender.eu"
+    force: yes
+
+- name: "Chown opentender.eu"
+  file:
+    dest: /var/www/opentender.eu
+    owner: www-data
+    group: www-data
+    recurse: yes
+
+- name: "Chown opentender"
+  file:
+    dest: "{{opentender.dir}}"
+    owner: "{{system.user}}"
+    group: "{{system.group}}"
+    state: directory
+    recurse: yes
