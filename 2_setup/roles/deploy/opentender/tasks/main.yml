@@ -1,6 +1,6 @@
 ---
-- hostname:
-    name: opentender
+#- hostname:
+#    name: opentender
 
 - name: "Copy Opentender Backend Config"
   copy:
